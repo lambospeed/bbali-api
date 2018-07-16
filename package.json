@@ -1,0 +1,26 @@
+{
+  "name": "bbail",
+  "version": "1.0.0",
+  "description": "bbail application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.heroku.com/bbail-backend.git"
+  },
+  "author": "Vitali Korepanov",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "crypto": "^1.0.1",
+    "express": "^4.16.3",
+    "mongodb": "^3.1.1",
+    "mongoose": "^5.2.3",
+    "multer": "^1.3.1",
+    "randomstring": "^1.1.5",
+    "save": "^2.3.2"
+  }
+}
