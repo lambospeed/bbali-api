@@ -17,7 +17,26 @@ function isEmailOrPhone(req, res, next) {
     var phone = /^\+[0-9]+\s[0-9]+$/;
     if ( ( req.body.email !== undefined && email.test(req.body.email)) 
             || ( req.body.phone !== undefined && phone.test(req.body.phone) )) {
-        next();
+        var arr = [];
+        if ( req.body.email !== undefined ) {
+            arr.push({ Email: req.body.email });
+        }
+        if ( req.body.phone !== undefined ) {
+            arr.push({ Phone: req.body.phone });
+        }
+        User.count({
+            $or: arr
+        }, function (err, count) {
+            console.log(err);
+            console.log(count);
+            if ( count === 0 ) {
+                next();
+            } else {
+                res.send({
+                    error: 'Email or Phone should be unique'
+                });
+            }
+        });
     } else {
         res.send({
             error: 'Email or Phone should be exist and correct'
@@ -98,7 +117,7 @@ router.post('/create',
             });
         } while ( User.find({UserAuth: auth}).count() > 0 );
         user.UserAuth = auth;
-        
+
         user.save().then(function (registerUser) {
             if (registerUser) {
                 res.send({
@@ -117,7 +136,7 @@ router.post('/create',
                     error: "Please try again later"
                 });
             }
-        })
+        });
 });
 
 router.post('/session', 
